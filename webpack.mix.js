@@ -11,7 +11,7 @@ let mix = require('laravel-mix');
  |
  */
 
-mix.copy('node_modules/bootstrap/dist/css/bootstrap.min.css', 'resources/assets/css');
+mix.copy('node_modules/bootstrap/dist/css/bootstrap.css', 'resources/assets/css');
 mix.copy('node_modules/datatables.net-bs4/css/dataTables.bootstrap4.css', 'resources/assets/css');
 
 
@@ -22,13 +22,13 @@ mix.copy('node_modules/datatables.net/js/jquery.dataTables.js', 'resources/asset
 
 
 mix.styles([
-        'resources/assets/css/bootstrap.min.css',
+        'resources/assets/css/bootstrap.css',
         'resources/assets/css/dataTables.bootstrap4.css'
     ], 'public/css/app.css');
 
 mix.scripts([
         'resources/assets/js/jquery.min.js',
-        'resources/assets/js/bootstrap.bootstrap.bundle.min.js',
+        'resources/assets/js/bootstrap.bundle.min.js',
         'resources/assets/js/jquery.dataTables.js',
         'resources/assets/js/dataTables.bootstrap4.js',
         'resources/assets/js/app.js'

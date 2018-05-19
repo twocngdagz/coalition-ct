@@ -26,7 +26,7 @@
     <br/>
     <br/>
     <div class="row">
-        <div class="cold-md-12">
+        <div class="col-md-12">
             <table class="datatables display" cellspacing="0" width="100%">
                 <thead>
                     <tr>
