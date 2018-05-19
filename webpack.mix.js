@@ -18,6 +18,7 @@ mix.copy('node_modules/datatables.net-bs4/css/dataTables.bootstrap4.css', 'resou
 mix.copy('node_modules/jquery/dist/jquery.min.js', 'resources/assets/js');
 mix.copy('node_modules/bootstrap/dist/js/bootstrap.bundle.min.js', 'resources/assets/js');
 mix.copy('node_modules/datatables.net-bs4/js/dataTables.bootstrap4.js', 'resources/assets/js');
+mix.copy('node_modules/datatables.net/js/jquery.dataTables.js', 'resources/assets/js');
 
 
 mix.styles([
@@ -26,10 +27,11 @@ mix.styles([
     ], 'public/css/app.css');
 
 mix.scripts([
-        'resources/assets/js/app.js',
         'resources/assets/js/jquery.min.js',
         'resources/assets/js/bootstrap.bootstrap.bundle.min.js',
-        'resources/assets/js/dataTables.bootstrap4.js'
+        'resources/assets/js/jquery.dataTables.js',
+        'resources/assets/js/dataTables.bootstrap4.js',
+        'resources/assets/js/app.js'
     ], 'public/js/app.js');
 
 

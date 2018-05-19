@@ -4,6 +4,7 @@
     "/resources/assets/js/jquery.min.js": "/resources/assets/js/jquery.min.js",
     "/resources/assets/js/bootstrap.bundle.min.js": "/resources/assets/js/bootstrap.bundle.min.js",
     "/resources/assets/js/dataTables.bootstrap4.js": "/resources/assets/js/dataTables.bootstrap4.js",
+    "/resources/assets/js/jquery.dataTables.js": "/resources/assets/js/jquery.dataTables.js",
     "/css/app.css": "/css/app.css",
     "/js/app.js": "/js/app.js"
 }
