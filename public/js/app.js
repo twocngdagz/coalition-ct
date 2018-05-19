@@ -15457,8 +15457,9 @@ $(document).ready(function() {
         "paging": false,
     });
 
-    $(document).on('click', '#submit_form', function(e) {
+    $(document).on('submit', '#product-form', function(e) {
         e.preventDefault();
+
         $.ajax({
             'data': {
                 '_token': $("input[name='_token']").val(),

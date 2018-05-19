@@ -84,7 +84,7 @@ class HomeController extends Controller
                 $row[] = (string) $xml->product->quantity;
                 $row[] = (string) $xml->product->price;
                 $submitted = new Carbon($xml->product->submitted);
-                $row[] = "";
+                $row[] = $submitted->toDateTimeString();
                 $row[] = intval($xml->product->price) * intval($xml->product->quantity);
                 $sum += intval($xml->product->price) * intval($xml->product->quantity);
                 $output['aaData'][] = $row;
@@ -123,15 +123,15 @@ class HomeController extends Controller
     {
         if (Storage::exists('storage.xml')) {
             $xml = simplexml_load_string(Storage::get('storage.xml'));
-            $id = $xml->count() + 1;
+            $productCount = $xml->count() + 1;
         } else {
             $xml = new \SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><products></products>', LIBXML_NOERROR | LIBXML_ERR_NONE | LIBXML_ERR_FATAL);
             if ($xml->count() == 0) {
-                $id = 1;
+                $productCount = 1;
             }
         }
         $product = $xml->addChild('product');
-        $product->addChild('id', $id);
+        $product->addChild('id', $productCount);
         $product->addChild('name', $request->get('name'));
         $product->addChild('quantity', $request->get('quantity'));
         $product->addChild('price', $request->get('price'));

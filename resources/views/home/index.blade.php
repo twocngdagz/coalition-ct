@@ -4,19 +4,19 @@
     <div class="row">
         <div class="col-md-12">
             <br/>
-            <form class="form-inline" role="form" method="POST" action="">
+            <form class="form-inline" role="form" method="POST" action="" id="product-form">
                 <input type="hidden" name="_token" value="{{ csrf_token() }}">
                 <div class="form-group">
                     <label class="sr-only" for="name">Product Name</label>
-                    <input type="text" class="form-control mb-2 mr-sm-2" id="name" name="name" placeholder="Product Name">
+                    <input type="text" class="form-control mb-2 mr-sm-2" id="name" name="name" placeholder="Product Name" required>
                 </div>
                 <div class="form-group">
                     <label class="sr-only" for="quantity">Quantity</label>
-                    <input type="text" class="form-control mb-2 mr-sm-2" id="quantity" name="quantity" placeholder="Quantity">
+                    <input type="number" class="form-control mb-2 mr-sm-2" id="quantity" name="quantity" placeholder="Quantity" required>
                 </div>
                 <div class="form-group">
                     <label class="sr-only" for="price">Price</label>
-                    <input type="text" class="form-control mb-2 mr-sm-2" id="price" name="price" placeholder="Price">
+                    <input type="number" class="form-control mb-2 mr-sm-2" id="price" name="price" placeholder="Price" required>
                 </div>
 
                 <button type="submit" class="btn btn-primary mb-2" id="submit_form">Submit</button>
