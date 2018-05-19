@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace app\Http\Controllers;
 
 use App\Http\Controllers\Controller;
 use Carbon\Carbon;
@@ -17,6 +17,30 @@ class HomeController extends Controller
     public function index()
     {
         return view('home.index');
+    }
+
+    /**
+     * Display the specified resource.
+     *
+     * @param int $id
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function update(Request $request)
+    {
+        if (Storage::exists('storage.xml')) {
+            $xml = simplexml_load_string(Storage::get('storage.xml'));
+            if ($xml->count() >= 1) {
+                foreach ($xml->children() as $child) {
+                    if ((string) $child->id == (string) $request->get('id')) {
+                        $child->name = $request->get('name');
+                        $child->quantity = $request->get('quantity');
+                        $child->price = $request->get('price');
+                    }
+                }
+            }
+            Storage::put('storage.xml', $xml->asXML());
+        }
     }
 
     public function getProducts(Request $request)
@@ -39,7 +63,7 @@ class HomeController extends Controller
                     $data = $data->sortByDesc('submitted');
                 }
 
-                $id = 1;
+                $productId = 1;
                 foreach ($data as $field) {
                     $row = array();
                     $row[] = $field['id'];
@@ -51,16 +75,16 @@ class HomeController extends Controller
                     $row[] = intval($field['price']) * intval($field['quantity']);
                     $sum += intval($field['price']) * intval($field['quantity']);
                     $output['aaData'][] = $row;
-                    ++$id;
+                    ++$productId;
                 }
-            } else {
+            } elseif ($xml->count() == 1) {
                 $row = array();
                 $row[] = (string) $xml->product->id;
                 $row[] = (string) $xml->product->name;
                 $row[] = (string) $xml->product->quantity;
                 $row[] = (string) $xml->product->price;
                 $submitted = new Carbon($xml->product->submitted);
-                $row[] = $submitted->toDateTimeString();
+                $row[] = "";
                 $row[] = intval($xml->product->price) * intval($xml->product->quantity);
                 $sum += intval($xml->product->price) * intval($xml->product->quantity);
                 $output['aaData'][] = $row;
@@ -86,5 +110,32 @@ class HomeController extends Controller
         );
 
         return response()->json($output);
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     *
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function store(Request $request)
+    {
+        if (Storage::exists('storage.xml')) {
+            $xml = simplexml_load_string(Storage::get('storage.xml'));
+            $id = $xml->count() + 1;
+        } else {
+            $xml = new \SimpleXMLElement('<?xml version="1.0" encoding="UTF-8"?><products></products>', LIBXML_NOERROR | LIBXML_ERR_NONE | LIBXML_ERR_FATAL);
+            if ($xml->count() == 0) {
+                $id = 1;
+            }
+        }
+        $product = $xml->addChild('product');
+        $product->addChild('id', $id);
+        $product->addChild('name', $request->get('name'));
+        $product->addChild('quantity', $request->get('quantity'));
+        $product->addChild('price', $request->get('price'));
+        $product->addChild('submitted', Carbon::now()->toDateTimeString());
+        Storage::put('storage.xml', $xml->asXML());
     }
 }

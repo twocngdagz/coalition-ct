@@ -13,3 +13,5 @@
 
 Route::get('/', 'HomeController@index');
 Route::get('/product', 'HomeController@getProducts');
+Route::post('/product', 'HomeController@store');
+Route::post('/product/edit', 'HomeController@update');
